@@ -21,7 +21,7 @@ public class PROYECTO2 {
        
         expresion.mostrar();
         JOptionPane.showMessageDialog(null, expresion.Notacion());
-        JOptionPane.showMessageDialog(null, expresion.TraducInf());    
+//        JOptionPane.showMessageDialog(null, expresion.TraducInf());    
     }
     
 }

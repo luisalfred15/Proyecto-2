@@ -436,16 +436,13 @@ public class ListaSimple {
     
 //    Metodo para Traducir de Infijo a Posfijo
     public String TraducInf(){
-        if(!EsVacio() && Simbolo_Correcto() == 1){
-            if("Infija".equals(this.Notacion())){
-                Pila PilaTraduc = new Pila();
-                ListaSimple ListaSalida = new ListaSimple();
-                return"Correcto";
-            }else{
-                return "Imcorrecto";
-            }
+        if(!EsVacio() && "Infija".equals(this.Notacion())){
+            Pila PilaTraduc = new Pila();
+            ListaSimple ListaSalida = new ListaSimple();
+            return"Correcto";
+        }else{
+            return "Incorrecto";
         }
-        return null;
     }
 }
 
