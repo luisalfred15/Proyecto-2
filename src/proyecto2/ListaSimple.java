@@ -325,7 +325,7 @@ public class ListaSimple {
                                 PilaVerif.apilar(caract_evaluar);
                                 PilaVerif.apilar('S');
                             }
-                        }else if(caract_evaluar == '('){
+                        }else if(caract_evaluar == ')'){
                             if(Character.isDigit(expresion.charAt(i-1)) || Character.isLetter(expresion.charAt(i-1))){
                                PilaVerif.apilar(caract_evaluar); 
                             }else{
@@ -348,14 +348,14 @@ public class ListaSimple {
                             }
                         }
                     }
-                    if(PilaVerif.getTamanio()==expresion.length()){
+                    if(PilaVerif.getTamanio()==expresion.length()){   //Notacion Infija
                         PilaVerif.destruir();
                         return "1";
-                    }else if(PilaVerif.getTamanio()>expresion.length()){
+                    }else if(PilaVerif.getTamanio()>expresion.length()){  //Error de Notacion
                         PilaVerif.destruir();
                         return "-1";
-                    }else if(PilaVerif.getTamanio()<expresion.length()){
-                        PilaVerif.destruir();
+                    }else if(PilaVerif.getTamanio()<expresion.length()){    //Simbolos juntos
+                        PilaVerif.destruir();      
                         return "0";
                     }
             }
@@ -377,10 +377,8 @@ public class ListaSimple {
                     switch(Form_Simbolo()){
                         case "1":
                             if(Character.isDigit(inicio) || Character.isLetter(inicio) || inicio == '-' || inicio == '('){
-                               if(Character.isDigit(ultimo) || Character.isLetter(ultimo)){
+                               if(Character.isDigit(ultimo) || Character.isLetter(ultimo) || ultimo == ')'){
                                    return "Infija";
-                               }else if(ultimo == ')'){
-                                  return "Infija"; 
                                }else{
                                    return "Notacion incorrecta";
                                }
@@ -393,13 +391,13 @@ public class ListaSimple {
                     switch(Form_Simbolo()){
                         case "1":
                             
-                            if((Character.isDigit(inicio) || Character.isLetter(inicio)) && (Character.isDigit(ultimo) || Character.isLetter(ultimo))){
+                            if((Character.isDigit(inicio) || Character.isLetter(inicio) || inicio == '-') && (Character.isDigit(ultimo) || Character.isLetter(ultimo))){
                                return "infija"; 
                             }else{
                                 return "Error de notación";
                             }
                         case "-1":
-                            return "Error de notacio";
+                            return "Error de notacion";
                         case "0":
                             switch(expresion.charAt(0)){
                                 case '^':
