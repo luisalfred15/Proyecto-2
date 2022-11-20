@@ -436,19 +436,19 @@ public class ListaSimple {
         return null;
     }
     
-    //Metodo para Traducir de Infijo a Posfijo
-//    public String TraducInf(){
-//        if(!EsVacio() && Simbolo_Correcto() == 1){
-//            if("Infija".equals(this.Notacion())){
-//                Pila PilaTraduc = new Pila();
-//                ListaSimple ListaSalida = new ListaSimple();
-//                return"Correcto";
-//            }else{
-//                return "Imcorrecto";
-//            }
-//        }
-//        return null;
-//    }
+//    Metodo para Traducir de Infijo a Posfijo
+    public String TraducInf(){
+        if(!EsVacio() && Simbolo_Correcto() == 1){
+            if("Infija".equals(this.Notacion())){
+                Pila PilaTraduc = new Pila();
+                ListaSimple ListaSalida = new ListaSimple();
+                return"Correcto";
+            }else{
+                return "Imcorrecto";
+            }
+        }
+        return null;
+    }
 }
 
 
