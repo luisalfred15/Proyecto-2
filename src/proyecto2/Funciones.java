@@ -52,7 +52,7 @@ public class Funciones {
                     }
                 }
                 if (!"".equals(expresion_txt)){
-                    String[] expresion_split = expresion_txt.split("\n");
+                    String[] expresion_split = expresion_txt.split("");
                     for(int i =0;i < expresion_split.length;i++){
                         expresion.InsertarFinal(expresion_split[i]);
                     }

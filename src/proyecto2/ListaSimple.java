@@ -198,6 +198,24 @@ public class ListaSimple {
         size++;
     }
     
+    public String ImprimirPorFrame(){
+        String ElementosDeLaLista= "nada";
+        if (EsVacio()) {
+            JOptionPane.showMessageDialog(null, "No hay elementos para mostrar");
+        }else{
+             String dato1 = pFirst.getDato().toString();
+             ElementosDeLaLista=dato1;
+             Nodo aux = pFirst.getPnext();
+            for (int i = 0; i < size; i++) {
+                String dato2 = aux.getDato().toString();   //convertimos lo que almacena el nodo a String para poder guardarlo en una cadena de caracteres y asi mostrarlo
+                ElementosDeLaLista += ","+dato2;
+                aux=aux.getPnext();
+            }
+        }                  
+        return ElementosDeLaLista;  
+        }
+
+    
     public void mostrar(){
         if (!EsVacio()){
             Nodo aux = pFirst;
@@ -213,18 +231,19 @@ public class ListaSimple {
         }
     }
     
-    public void EliminarInicio(){
+    //Funcion para eliminar al inicio
+    public boolean Eliminar_Inicio(){
         if(!EsVacio()){
             pFirst = pFirst.getPnext();
-            JOptionPane.showMessageDialog(null, "Elemento eliminado");
+            size--;
+            return true;
         }else{
-            JOptionPane.showMessageDialog(null, "lA LISTA ESTA VACIA");
+            return false;
         }
-        size--;
     }
     
     //Metodo para transformar una lista en cadena de caracteres
-    public String Transformar(){
+    private String Transformar(){
         if(!EsVacio()){
             
             Nodo aux = pFirst;
@@ -240,7 +259,7 @@ public class ListaSimple {
     }
     
     //Metodolo para que los caracteres que contega la expresion son validos
-    public int Simbolo_Correcto(){
+    private int Simbolo_Correcto(){
         if(!EsVacio()){
             String lista = this.Transformar();
             Pila PilaInc = new Pila();
@@ -273,7 +292,7 @@ public class ListaSimple {
     }
     
     //Evaluar sin contiene o no parentesis
-    public int Parentesis(){
+    private int Parentesis(){
         if(!EsVacio() && Simbolo_Correcto() == 1){
             String lista = this.Transformar();
             
@@ -307,7 +326,7 @@ public class ListaSimple {
     }
     
     //Metodo para evaluar la distribucion de los caracteres que contiene la expresion
-    public String Form_Simbolo(){
+    private String Form_Simbolo(){
         if(!EsVacio() && Simbolo_Correcto() == 1){
             String expresion = this.Transformar();
             Pila PilaVerif = new Pila();
@@ -371,7 +390,7 @@ public class ListaSimple {
             char inicio = expresion.charAt(0);
             char ultimo = expresion.charAt(expresion.length()-1);
             if(3 == this.Parentesis()){
-                JOptionPane.showMessageDialog(null, "La lista esta vacia");
+                JOptionPane.showMessageDialog(null, "La lista esta vacia.");
             }else switch (this.Parentesis()) {
                 case 1:
                     switch(Form_Simbolo()){
@@ -384,20 +403,12 @@ public class ListaSimple {
                                }
                             }
                         default:
-                            return "notacion incorrecta";
+                            return "Notacion incorrecta";
                     }
                     
                 case 0:
                     switch(Form_Simbolo()){
                         case "1":
-                            
-                            if((Character.isDigit(inicio) || Character.isLetter(inicio) || inicio == '-') && (Character.isDigit(ultimo) || Character.isLetter(ultimo))){
-                               return "infija"; 
-                            }else{
-                                return "Error de notación";
-                            }
-                        case "-1":
-                            return "Error de notacion";
                         case "0":
                             switch(expresion.charAt(0)){
                                 case '^':
@@ -410,6 +421,7 @@ public class ListaSimple {
                                     }else{
                                         return "Error de notación";
                                     }
+                            
                                 default:
                                     if(Character.isDigit(expresion.charAt(0)) || Character.isLetter(expresion.charAt(0))){
                                         switch(expresion.charAt(expresion.length()-1)){
@@ -422,6 +434,10 @@ public class ListaSimple {
                                             default:
                                                 return "Error de notacion";
                                         }
+                                    } else if((Character.isDigit(inicio) || Character.isLetter(inicio) || inicio == '-') && (Character.isDigit(ultimo) || Character.isLetter(ultimo))){
+                                        return "Infija"; 
+                                    }else{
+                                        return "Error de notación";
                                     }
                             }
                     }
@@ -434,16 +450,149 @@ public class ListaSimple {
         return null;
     }
     
-//    Metodo para Traducir de Infijo a Posfijo
-    public String TraducInf(){
-        if(!EsVacio() && "Infija".equals(this.Notacion())){
+    //Metodo que da valor a los operadores dentro de una expresion
+     private int prioridad(char c){
+        int p =100;
+        switch(c){
+            case '^':    // La potencia es lo que más tiene prioridad
+                p=30;    // Se le asigna un valor 
+                break;    
+            /*
+                La multiplicación y la divisón tienen el mismo orden de prioridad
+                entonces en ambos casos le asigno el mismo valor de prioridad,
+                como debe ser menor al valor de prioridad de la potencia,
+                le asigno 20
+           */
+            case '*': 
+            case '/':
+                p = 20;
+                break;
+                
+            /*
+                La suma y la resta tienen el mismo orden de prioridad
+                entonces en ambos casos le asigno el mismo valor de prioridad,
+                como debe ser menor al valor de prioridad de la multiplicación y
+                de la división, le asigno 10
+           */
+            case '+':
+            case '-':
+                p=10;
+                break;
+            
+            default: 
+                p=0; // asumimos que lo que tenemos dentro de la pila tendrá un valor de 0
+                 
+        }
+        
+        return p;
+    }
+    
+    //Metodo para Traducir de Infijo a Posfijo
+     public String TraducInf(){
+        if("Infija".equals(this.Notacion())){
             Pila PilaTraduc = new Pila();
             ListaSimple ListaSalida = new ListaSimple();
-            return"Correcto";
+            while(!EsVacio()){
+                Object element = pFirst.getDato();
+                String s = (String) element;
+                this.Eliminar_Inicio();
+                if(Character.isDigit(s.charAt(0)) || Character.isLetter(s.charAt(0))){
+                    ListaSalida.InsertarFinal(element);
+                }else{
+                    switch(s.charAt(0)){
+                        case '(':
+                            PilaTraduc.apilar(element);
+                        case')':
+                            Object e = PilaTraduc.cima();
+                            String cima = (String) e;
+                            while(!PilaTraduc.esVacia() && cima.charAt(0) != '('){
+                               PilaTraduc.quitar();
+                               ListaSalida.InsertarFinal(e);
+                            }
+                            if(!PilaTraduc.esVacia() && cima.charAt(0) == '('){
+                                PilaTraduc.quitar();
+                            }
+                        case '^':
+                        case '/':
+                        case '*':
+                        case '+':
+                        case '-':
+                            Object e2 = PilaTraduc.cima();
+                            String cima2 = (String) e2;
+                            while(!PilaTraduc.esVacia() && prioridad(cima2.charAt(0)) >= prioridad(s.charAt(0))){
+                                PilaTraduc.quitar();
+                                ListaSalida.InsertarFinal(element);
+                            }
+                            PilaTraduc.apilar(element);
+                    }
+                }
+            }
+            while(!PilaTraduc.esVacia()){
+                Object element2 = PilaTraduc.cima();
+                PilaTraduc.quitar();
+                ListaSalida.InsertarFinal(element2);
+            }
+            PilaTraduc.destruir();
+            String expresion = ListaSalida.Transformar();
+            return expresion;
         }else{
-            return "Incorrecto";
+            return "La notación no es correcta"; 
         }
     }
+//    public String TraducInf(){
+//        if("Infija".equals(this.Notacion())){
+//            Pila PilaTraduc = new Pila();
+//            ListaSimple ListaSalida = new ListaSimple();
+//            while(!EsVacio()){
+//                Object element = pFirst.getDato();
+//                String s = (String) element;
+//                this.Eliminar_Inicio();
+//                if(Character.isDigit(s.charAt(0))){
+//                    ListaSalida.InsertarFinal(element);
+//                }else if(Character.isLetter(s.charAt(0))){
+//                    ListaSalida.InsertarFinal(element);
+//                }else{
+//                    switch(s.charAt(0)){
+//                        case '(':
+//                            PilaTraduc.apilar(element);
+//                        case')':
+//                            Object e = PilaTraduc.cima();
+//                            String cima = (String) e;
+//                            while(!PilaTraduc.esVacia() && cima.charAt(0) != '('){
+//                               PilaTraduc.quitar();
+//                               ListaSalida.InsertarFinal(e);
+//                            }
+//                            if(!PilaTraduc.esVacia() && cima.charAt(0) == '('){
+//                                PilaTraduc.quitar();
+//                            }
+//                        case '^':
+//                        case '/':
+//                        case '*':
+//                        case '+':
+//                        case '-':
+//                            Object e2 = PilaTraduc.cima();
+//                            String cima2 = (String) e2;
+//                            while(!PilaTraduc.esVacia() && prioridad(cima2.charAt(0)) >= prioridad(s.charAt(0))){
+//                                PilaTraduc.quitar();
+//                                ListaSalida.InsertarFinal(element);
+//                            }
+//                            PilaTraduc.apilar(element);
+//                    }
+//                }
+//            }
+//            while(!PilaTraduc.esVacia()){
+//                Object element2 = PilaTraduc.cima();
+//                PilaTraduc.quitar();
+//                ListaSalida.InsertarFinal(element2);
+//            }
+//            PilaTraduc.destruir();
+//            return ListaSalida.Transformar();
+//            
+//        }else{
+//            return "Incorrecto";
+//        }
+//    }
+    
 }
 
 

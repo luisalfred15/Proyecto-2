@@ -18,10 +18,12 @@ public class PROYECTO2 {
     public static void main(String[] args) {
         Funciones func = new Funciones();
         ListaSimple expresion = func.Leer_txt();
-       
+        
         expresion.mostrar();
         JOptionPane.showMessageDialog(null, expresion.Notacion());
-//        JOptionPane.showMessageDialog(null, expresion.TraducInf());    
+        JOptionPane.showMessageDialog(null, expresion.TraducInf());
+
+        
     }
     
 }
