@@ -8,7 +8,7 @@ package proyecto2;
  *
  * @author moise
  */
-public class Pila {
+public class Pila<T> {
     
     private NodoPila inicio;
     private int tamanio;
@@ -19,7 +19,7 @@ public class Pila {
     }
     
     public boolean esVacia(){
-        return inicio == null;
+        return getInicio() == null;
     }
     
     public int getTamanio(){
@@ -28,35 +28,33 @@ public class Pila {
     
     public void apilar(Object valor){
         // Define un nuevo nodo.
-        NodoPila nuevo = new NodoPila();
-        // Agrega al valor al nodo.
-        nuevo.setValor(valor);
+        NodoPila nuevo = new NodoPila(valor);
         // Consulta si la pila esta vacia.
         if (esVacia()) {
             // Inicializa la pila con el nuevo valor.
-            inicio = nuevo;
+            setInicio(nuevo);
         }
         // Caso contrario agrega el nuevo nodo al inicio de la pila.
         else{
-            nuevo.setSiguiente(inicio);
-            inicio = nuevo;
+            nuevo.setSiguiente(getInicio());
+            setInicio(nuevo);
         }
         // Incrementa el contador del tamaño.
-        tamanio++;
+        setTamanio(getTamanio() + 1);
     } 
     
     public void quitar(){
         if (!esVacia()) {
             // Asigna como primer nodo al siguiente de la pila.
-            inicio = inicio.getSiguiente();
+            setInicio(getInicio().getSiguiente());
             // Decrementa el contador del tamaño de la pila
-            tamanio--;
+            setTamanio(getTamanio() - 1);
         }
     }
     
     public Object cima(){
         if(!esVacia()){
-            return inicio.getValor();
+            return getInicio().getValor();
         }else{
             return "La Pila esta vacia";
         }
@@ -64,8 +62,31 @@ public class Pila {
     
     public void destruir(){
         // Elimina el valor y la referencia a los demas nodos.
-        inicio = null;
+        setInicio(null);
         // Reinicia el contador a 0.
-        tamanio = 0;
+        setTamanio(0);
     }
+
+    /**
+     * @return the inicio
+     */
+    public NodoPila getInicio() {
+        return inicio;
+    }
+
+    /**
+     * @param inicio the inicio to set
+     */
+    public void setInicio(NodoPila inicio) {
+        this.inicio = inicio;
+    }
+
+    /**
+     * @param tamanio the tamanio to set
+     */
+    public void setTamanio(int tamanio) {
+        this.tamanio = tamanio;
+    }
+    
+    
 }

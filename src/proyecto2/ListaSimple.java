@@ -537,38 +537,37 @@ public class ListaSimple {
     }
 
     public ArbolBinario conversionPosfijaEnArbol() {
-        Pila pilaExpresion = new Pila();
+        Pila<ArbolBinario> pilaExpresion = new Pila<>();
         ArbolBinario arbolExpresion;
-        Nodo termino;
 
         while (!this.EsVacio()) {
-            termino = this.getpFirst();
+            NodoArbol termino = new NodoArbol(this.getpFirst().getDato());
+            ArbolBinario arbolTermino = new ArbolBinario();
+            arbolTermino.agregarNodo(termino, null, "");
             this.Eliminar_Inicio();
-            switch (Funciones.evaluarElemento(termino.getDato())) {
+            switch (Funciones.evaluarElemento(termino.getDatos())) {
                 case "numero":
-                    pilaExpresion.apilar(termino.getDato());
+                    pilaExpresion.apilar(arbolTermino);
                     break;
                 case "variable":
-                    pilaExpresion.apilar(termino.getDato());
+                    pilaExpresion.apilar(arbolTermino);
                     break;
                 case "arbol":
-                    pilaExpresion.apilar(termino.getDato());
+                    pilaExpresion.apilar(arbolTermino);
                     break;
                 case "operador":
-                    NodoArbol nodoElemento1 = new NodoArbol(pilaExpresion.cima());
-                    ArbolBinario arbol1 = new ArbolBinario();
-                    arbol1.agregarNodo(nodoElemento1, null, "");
+                    ArbolBinario arbolElemento1 = (ArbolBinario) pilaExpresion.cima();
                     pilaExpresion.quitar();
-                    NodoArbol nodoElemento2 = new NodoArbol(pilaExpresion.cima());
-                    ArbolBinario arbol2 = new ArbolBinario();
-                    arbol2.agregarNodo(nodoElemento2, null, "");
+                    
+                    ArbolBinario arbolElemento2 = (ArbolBinario) pilaExpresion.cima();
                     pilaExpresion.quitar();
+                    
                     ArbolBinario arbolAux = new ArbolBinario();
-                    NodoArbol nodoRaiz = new NodoArbol(termino.getDato());
+                    NodoArbol nodoRaiz = termino;
                     arbolAux.agregarNodo(nodoRaiz, null, "");
-                    NodoArbol nodoDer = nodoElemento1;
+                    NodoArbol nodoDer = arbolElemento1.getNodoRaiz();
                     arbolAux.agregarNodo(nodoDer, nodoRaiz.getDatos(), "derecha");
-                    NodoArbol nodoIzq = nodoElemento2;
+                    NodoArbol nodoIzq = arbolElemento2.getNodoRaiz();
                     arbolAux.agregarNodo(nodoIzq, nodoRaiz.getDatos(), "izquierda");
                     pilaExpresion.apilar(arbolAux);
                     break;

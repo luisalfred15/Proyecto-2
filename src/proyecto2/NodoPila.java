@@ -8,25 +8,25 @@ package proyecto2;
  *
  * @author moise
  */
-public class NodoPila {
+public class NodoPila<T> {
     
     // Variable en la cual se va a guardar el valor.
     private Object valor;
     // Variable para enlazar los nodos.
     private NodoPila siguiente;
     
-    public void Nodo(){
-        this.valor = 0;
+    public NodoPila(Object valor){
+        this.valor = valor;
         this.siguiente = null;
     }
     
     
     // Métodos get y set para los atributos.
-    public Object getValor() {
-        return valor;
+    public T getValor() {
+        return (T) valor;
     }
 
-    public void setValor(Object valor) {
+    public void setValor(T valor) {
         this.valor = valor;
     }
 

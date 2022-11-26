@@ -17,11 +17,11 @@ public class ArbolBinario {
     }
     
     public boolean esVacio() {
-        return this.nodoRaiz == null;
+        return this.getNodoRaiz() == null;
     }
     
     public void vaciar() {
-        this.nodoRaiz = null;
+        this.setNodoRaiz(null);
     }
     
     public NodoArbol buscarPadre(NodoArbol nodoRaiz, Object datos) {
@@ -40,9 +40,9 @@ public class ArbolBinario {
     
     public void agregarNodo(NodoArbol nodoNuevo, Object datosPadre, String lado) {
         if (this.esVacio()) {
-            this.nodoRaiz = nodoNuevo;
+            this.setNodoRaiz(nodoNuevo);
         } else {
-            NodoArbol nodoPadre = buscarPadre(this.nodoRaiz, datosPadre);
+            NodoArbol nodoPadre = buscarPadre(this.getNodoRaiz(), datosPadre);
             if (nodoPadre == null) {
                 System.out.println("El nodo no existe");
             } else if (nodoPadre.getNodoHijoIzq() == null && lado == "izquierda") {
@@ -54,4 +54,20 @@ public class ArbolBinario {
             }
         }
     }
+
+    /**
+     * @return the nodoRaiz
+     */
+    public NodoArbol getNodoRaiz() {
+        return nodoRaiz;
+    }
+
+    /**
+     * @param nodoRaiz the nodoRaiz to set
+     */
+    public void setNodoRaiz(NodoArbol nodoRaiz) {
+        this.nodoRaiz = nodoRaiz;
+    }
+    
+    
 }
