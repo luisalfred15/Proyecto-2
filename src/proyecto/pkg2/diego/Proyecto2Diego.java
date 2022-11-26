@@ -17,12 +17,10 @@ public class Proyecto2Diego {
         String expression2 = "/++*3^x2**2x^y2*8^y3+*8^x3**3^x2^y2";
         Conversion c = new Conversion();
         
-        System.out.println(c.convert(expression2));
-        System.out.println(c.covertInfixToPostfix(c.convert(expression2)));
+        System.out.println(c.convertPrefixToInfix(expression2));
+        System.out.println(c.covertInfixToPostfix(c.convertPrefixToInfix(expression2)));
+
         
-//        System.out.println("Infija: " + expression);
-//        System.out.println("Polaca Inversa: " + c.covertInfixToPostfix(expression));
-//        System.out.println("Polaca: " + c.infixToPrefix(expression));
         
     
        

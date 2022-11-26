@@ -8,8 +8,7 @@ public class Conversion {
         return Character.isLetterOrDigit(ch);
     }
 
-    // Function to compare precedence
-    // If we return larger value means higher precedence
+    // Funcion para obetner la prioridad de los operadores//
     public int precedence(char ch)
     {
         switch (ch)
@@ -28,7 +27,7 @@ public class Conversion {
         return -1;
     }
 
-
+    //Algoritmo para convertir de infijo a postfijo//
     public String covertInfixToPostfix(String expr)
     {
         int i;
@@ -37,17 +36,13 @@ public class Conversion {
 
         for (i = 0; i < expr.length(); ++i)
         {
-            // Here we are checking is the character we scanned is operand or not
-            // and this adding to output.
+            // Verificamos si el carcter es operador 
             if (checkIfOperand(expr.charAt(i)))
                 result.append(expr.charAt(i));
 
-                // Here, if we scan the character ‘(‘, '[', '{' we need to push it to the stack.
             else if (expr.charAt(i) == '(' || expr.charAt(i) == '[' || expr.charAt(i) == '{')
                 s.push(expr.charAt(i));
 
-                // Here, if we scan character is an ‘)’, we need to pop and print from the stack
-                // do this until an ‘(‘ is encountered in the stack.
             else if (expr.charAt(i) == ')' || expr.charAt(i) == ']' || expr.charAt(i) == '}')
             {
                 if(expr.charAt(i) == ')'){
@@ -76,7 +71,7 @@ public class Conversion {
                     s.pop();
                 }
             }
-            else // if an operator
+            else 
             {
                 while (!s.isEmpty() && precedence(expr.charAt(i)) <= precedence(s.peek())){
                     result.append(s.peek());
@@ -87,8 +82,7 @@ public class Conversion {
 
         }
 
-        // Once all initial expression characters are traversed
-        // adding all left elements from stack to exp
+        // Vaciamos el resto de la pila
         while (!s.isEmpty()){
             result.append(s.peek());
             s.pop();
@@ -98,7 +92,53 @@ public class Conversion {
 
     }
     
-//    public boolean isOperator(char c) {
+
+    
+    public boolean IsOperator(char x) {
+        switch (x) {
+            case '+':
+            case '-':
+            case '*':
+            case '/':
+            case '^':
+            case '%':
+                return true;
+        }
+        return false;
+    }
+    
+    //Algoritmo para convertir de prefijo a infijo//
+    public String convertPrefixToInfix(String str) {
+        Pila stack = new Pila();
+
+        // Longitud de la expresion
+        int l = str.length();
+
+        // Leemos de derecha a izquierda
+        for (int i = l - 1; i >= 0; i--) {
+            char c = str.charAt(i);
+            if (IsOperator(c)) {
+                String op1 = String.valueOf(stack.pop());
+                String op2 = String.valueOf(stack.pop());
+
+                // Concatenamos
+                String temp = "(" + op1 + c + op2 + ")";
+                stack.push(temp);
+            } else {
+
+                // Convertimos a String
+                stack.push(c + "");
+            }
+        }
+        return String.valueOf(stack.pop());
+    }
+    
+     
+    
+    
+    
+    
+    //    public boolean isOperator(char c) {
 //        return (!(c >= 'a' && c <= 'z')
 //                && !(c >= '0' && c <= '9')
 //                && !(c >= 'A' && c <= 'Z'));
@@ -220,44 +260,4 @@ public class Conversion {
 //        // present in operands stack.
 //        return String.valueOf(operands.peek());
 //    }
-    
-    public boolean IsOperator(char x) {
-        switch (x) {
-            case '+':
-            case '-':
-            case '*':
-            case '/':
-            case '^':
-            case '%':
-                return true;
-        }
-        return false;
-    }
-
-    public String convert(String str) {
-        Pila stack = new Pila();
-
-        // Length of expression
-        int l = str.length();
-
-        // Reading from right to left
-        for (int i = l - 1; i >= 0; i--) {
-            char c = str.charAt(i);
-            if (IsOperator(c)) {
-                String op1 = String.valueOf(stack.pop());
-                String op2 = String.valueOf(stack.pop());
-
-                // Concat the operands and operator
-                String temp = "(" + op1 + c + op2 + ")";
-                stack.push(temp);
-            } else {
-
-                // To make character to string
-                stack.push(c + "");
-            }
-        }
-        return String.valueOf(stack.pop());
-    }
-    
-     
 }
