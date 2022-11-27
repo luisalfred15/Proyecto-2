@@ -33,6 +33,10 @@ public class ArbolBinario <T>{
         }
     }
     
+    public NodoArbolBinario <T> getRaiz(){
+        return proot;
+    }
+    
      public boolean IsEmpty(){
         return proot == null;
     }
@@ -162,6 +166,9 @@ public class ArbolBinario <T>{
         
         
     }
+    
+   
+    
     
     
     

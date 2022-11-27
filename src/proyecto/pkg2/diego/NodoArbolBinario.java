@@ -14,4 +14,15 @@ public class NodoArbolBinario <T>{
     }
     
     
+    public int nodosCompletos(NodoArbolBinario n) {
+        if (n == null)
+            return 0;
+        else {
+            if (n.HijoIzq != null && n.HijoDer != null)
+                return nodosCompletos(n.HijoIzq) + nodosCompletos(n.HijoDer) + 1;
+            return nodosCompletos(n.HijoIzq) + nodosCompletos(n.HijoDer);
+        }
+    }
+    
+    
 }
