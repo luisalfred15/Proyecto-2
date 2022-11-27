@@ -67,5 +67,5 @@ public class Pila {
         inicio = null;
         // Reinicia el contador a 0.
         tamanio = 0;
-    }
+    } 
 }

@@ -16,12 +16,13 @@ public class PROYECTO2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Funciones func = new Funciones();
-        ListaSimple expresion = func.Leer_txt();
-        
-        expresion.mostrar();
-        JOptionPane.showMessageDialog(null, expresion.Notacion());
-        JOptionPane.showMessageDialog(null, expresion.TraducInf());
+//        Funciones func = new Funciones();
+//        ListaSimple expresion = func.Leer_txt();
+//        
+//        expresion.mostrar();
+//        JOptionPane.showMessageDialog(null, expresion.Notacion());
+          Interfaz ventana = new Interfaz();
+          ventana.setVisible(true);
 
         
     }

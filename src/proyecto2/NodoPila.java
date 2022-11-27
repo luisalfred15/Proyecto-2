@@ -15,8 +15,13 @@ public class NodoPila {
     // Variable para enlazar los nodos.
     private NodoPila siguiente;
     
-    public void Nodo(){
-        this.valor = 0;
+//    public void Nodo(){
+//        this.valor = 0;
+//        this.siguiente = null;
+//    }
+    
+    public void NodoPila(Object d){
+        this.valor = d;
         this.siguiente = null;
     }
     
