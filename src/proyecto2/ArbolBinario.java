@@ -74,7 +74,7 @@ public class ArbolBinario {
     public String preorden(NodoArbol root) {
         String recorrido = "";
         if (root != null) {
-            recorrido += "(" + root.getDatos() + ") ";
+            recorrido +=  root.getDatos();
             recorrido += preorden(root.getNodoHijoIzq());
             recorrido += preorden(root.getNodoHijoDer());
         }
@@ -85,7 +85,7 @@ public class ArbolBinario {
         String recorrido = "";
         if (root != null) {
             recorrido += inorden(root.getNodoHijoIzq());
-            recorrido += "(" + root.getDatos() + ") ";
+            recorrido +=  root.getDatos() ;
             recorrido += inorden(root.getNodoHijoDer());
         }
         return recorrido;
@@ -96,7 +96,7 @@ public class ArbolBinario {
         if (root != null) {
             recorrido += postorden(root.getNodoHijoIzq());
             recorrido += postorden(root.getNodoHijoDer());
-            recorrido += "(" + root.getDatos() + ") ";
+            recorrido +=  root.getDatos() ;
         }
         return recorrido;
     }

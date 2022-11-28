@@ -27,7 +27,7 @@ public class Lienzo extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        super.paint(g); //To change body of generated methods, choose Tools | Templates.
+        super.paint(g); 
         pintar(g, getWidth() / 2, 20, objArbol.nodoRaiz);
     }
     
@@ -36,7 +36,7 @@ public class Lienzo extends JPanel {
         if (n == null)
         {}
         else {
-            int EXTRA = n.nodosCompletos(n) * (ANCHO / 2);
+            int EXTRA = n.nodosCompletos(n) * (ANCHO / 4);
             g.setColor(Color.BLACK);
             g.drawOval(x, y, DIAMETRO, DIAMETRO);
             g.setColor(Color.WHITE);
@@ -44,7 +44,7 @@ public class Lienzo extends JPanel {
             g.setColor(Color.RED);
             g.setFont(fuente);
             g.drawString(n.getDatos().toString(), x + 12, y + 18);
-            g.setColor(Color.BLACK);
+            g.setColor(Color.lightGray);
             
             if (n.getNodoHijoIzq() != null)
                 g.setColor(Color.BLACK);

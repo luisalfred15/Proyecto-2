@@ -147,7 +147,7 @@ public class Window extends javax.swing.JFrame {
         JFrame ventana = new JFrame();
         ventana.getContentPane().add(objLienzo);
         ventana.setDefaultCloseOperation(3);
-        ventana.setSize(600, 600);
+        ventana.setSize(3000, 800);
         ventana.setVisible(true);
         //= = = = = = = = 
         
@@ -155,6 +155,7 @@ public class Window extends javax.swing.JFrame {
         prefijo.setText(arbolExpresion.preorden(arbolExpresion.getNodoRaiz()));
         postfijo.setText(arbolExpresion.postorden(arbolExpresion.getNodoRaiz()));
         
+        this.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
