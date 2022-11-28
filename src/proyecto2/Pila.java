@@ -67,5 +67,26 @@ public class Pila {
         inicio = null;
         // Reinicia el contador a 0.
         tamanio = 0;
-    } 
+    }
+    
+    public void push(Object d){
+        NodoPila nuevo = new NodoPila(d);
+        if(inicio == null){
+            inicio = nuevo;
+            tamanio++;
+        }else{
+            if(d != null){
+                nuevo.siguiente = inicio;
+                inicio = nuevo;
+                tamanio++;
+            }
+        }
+    }
+    
+    public Object pop() {
+        NodoPila temp = inicio;
+        inicio = inicio.siguiente;
+        tamanio--;
+        return temp.valor;
+    }
 }

@@ -243,7 +243,7 @@ public class ListaSimple {
     }
     
     //Metodo para transformar una lista en cadena de caracteres
-    private String Transformar(){
+    public String Transformar(){
         if(!EsVacio()){
             
             Nodo aux = pFirst;

@@ -16,15 +16,17 @@ public class PROYECTO2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        Funciones func = new Funciones();
-//        ListaSimple expresion = func.Leer_txt();
-//        
-//        expresion.mostrar();
-//        JOptionPane.showMessageDialog(null, expresion.Notacion());
-          Interfaz ventana = new Interfaz();
-          ventana.setVisible(true);
+        Funciones func = new Funciones();
+        ListaSimple expresion = func.Leer_txt();
+        Conversion conver = new Conversion();
+        String exp = conver.covertInfixToPostfix(expresion.Transformar());
+        
+        expresion.mostrar();
+        
+        JOptionPane.showMessageDialog(null, exp);
+//          Interfaz ventana = new Interfaz();
+//          ventana.setVisible(true);
 
         
     }
-    
 }

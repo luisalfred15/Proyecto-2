@@ -11,17 +11,22 @@ package proyecto2;
 public class NodoPila {
     
     // Variable en la cual se va a guardar el valor.
-    private Object valor;
+     Object valor;
     // Variable para enlazar los nodos.
-    private NodoPila siguiente;
+    NodoPila siguiente;
     
-//    public void Nodo(){
-//        this.valor = 0;
-//        this.siguiente = null;
-//    }
+    public void Nodo(){
+        this.valor = 0;
+        this.siguiente = null;
+    }
     
-    public void NodoPila(Object d){
+    public NodoPila(Object d){
         this.valor = d;
+        this.siguiente = null;
+    }
+    
+    public NodoPila(){
+        this.valor = "";
         this.siguiente = null;
     }
     

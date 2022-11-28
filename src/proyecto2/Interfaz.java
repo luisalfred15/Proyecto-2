@@ -41,6 +41,8 @@ public class Interfaz extends javax.swing.JFrame {
         Expresion = new javax.swing.JTextArea();
         TITULO_CargarNotacion = new javax.swing.JLabel();
         MostrarNotacion = new javax.swing.JButton();
+        TITULO_MostrarABB = new javax.swing.JLabel();
+        MostrarABB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -78,6 +80,17 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
         jPanel1.add(MostrarNotacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, 20));
+
+        TITULO_MostrarABB.setText("Mostrar Arbol");
+        jPanel1.add(TITULO_MostrarABB, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 80, 20));
+
+        MostrarABB.setText("Mostrar");
+        MostrarABB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MostrarABBActionPerformed(evt);
+            }
+        });
+        jPanel1.add(MostrarABB, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 80, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 410));
 
@@ -126,6 +139,27 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_MostrarNotacionActionPerformed
 
+    private void MostrarABBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarABBActionPerformed
+        if(!expresion.EsVacio()){
+            if("Infija".equals(expresion.Notacion())){
+                Conversion conver = new Conversion();
+                String exp = conver.covertInfixToPostfix(expresion.Transformar());
+                
+            }else if("Polaca Inversa".equals(expresion.Transformar())){
+                Conversion conver2 = new Conversion();
+                String exp2 = conver2.convertPrefixToInfix(expresion.Transformar());
+                String exp3 = conver2.covertInfixToPostfix(exp2);
+                
+            }else if("Polaca".equals(expresion.Transformar())){
+                
+            }else{
+                JOptionPane.showMessageDialog(null, "La lista esta vacia");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "La lista esta vacia");
+        }
+    }//GEN-LAST:event_MostrarABBActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -165,8 +199,10 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JTextField CargarArchivo_txt;
     private javax.swing.JButton Cargartxt;
     private javax.swing.JTextArea Expresion;
+    private javax.swing.JButton MostrarABB;
     private javax.swing.JButton MostrarNotacion;
     private javax.swing.JLabel TITULO_CargarNotacion;
+    private javax.swing.JLabel TITULO_MostrarABB;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
